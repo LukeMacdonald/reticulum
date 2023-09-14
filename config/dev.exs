@@ -71,11 +71,6 @@ config :ret, Ret.JanusLoadStatus, default_janus_host: dev_janus_host, janus_port
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
-default_janus_csp_rule =
-   if default_janus_host,
-      do: "wss://#{default_janus_host}:#{janus_port} https://#{default_janus_host}:#{janus_port} https://#{default_janus_host}:#{janus_port}/meta",
-      else: ""
-
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
