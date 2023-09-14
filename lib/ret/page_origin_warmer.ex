@@ -8,6 +8,7 @@ defmodule Ret.PageOriginWarmer do
              index.html
              whats-new.html
              hub.html
+             canvas.html
              link.html
              scene.html
              avatar.html
