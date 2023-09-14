@@ -126,6 +126,37 @@ defmodule RetWeb.PageController do
     conn |> send_resp(404, "")
   end
 
+   defp render_avatar_content(%t{} = canvas, conn) when t in [Avatar, AvatarListing] do
+    {app_config, app_config_script} = generate_app_config()
+
+    avatar_meta_tags =
+      Phoenix.View.render_to_string(RetWeb.PageView, "canvas.html",
+        canvas: canvas,
+        ret_meta: Ret.Meta.get_meta(include_repo: false),
+        app_config_script: {:safe, app_config_script |> with_script_tags},
+        extra_html: {:safe, get_extra_html(:canvas) || ""}
+      )
+
+    case try_chunks_for_page(conn, "avatar.html", :hubs) do
+      {:ok, chunks} ->
+        chunks_with_meta = chunks |> List.insert_at(1, avatar_meta_tags)
+
+        conn
+        |> append_script_csp(app_config_script)
+        |> append_extra_script_csp(:avatar)
+        |> put_hub_headers("avatar")
+        |> put_extra_response_headers_for_page(:avatar)
+        |> render_chunks(chunks_with_meta, "text/html; charset=utf-8")
+
+      {:error, conn} ->
+        conn
+    end
+  end
+
+  defp render_avatar_content(nil, conn) do
+    conn |> send_resp(404, "")
+  end
+
   defp render_homepage_content(conn, nil = _public_room_id) do
     {app_config, app_config_script} = generate_app_config()
 
