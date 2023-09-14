@@ -125,6 +125,8 @@ defmodule RetWeb.Router do
       resources "/ret_notices", Api.V1.RetNoticeController, only: [:create]
 
       get "/whats-new", Api.V1.WhatsNewController, :show
+
+      get "/canvas", Api.V1.CanvasController, :show
     end
 
     scope "/v1", as: :api_v1 do
