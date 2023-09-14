@@ -66,8 +66,15 @@ config :ret, RetWeb.Endpoint,
     ]
   ]
 
+dev_janus_host = "localhost"
+config :ret, Ret.JanusLoadStatus, default_janus_host: dev_janus_host, janus_port: 4443
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
+
+default_janus_csp_rule =
+   if default_janus_host,
+      do: "wss://#{default_janus_host}:#{janus_port} https://#{default_janus_host}:#{janus_port} https://#{default_janus_host}:#{janus_port}/meta",
+      else: ""
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
@@ -164,6 +171,8 @@ config :ret, RetWeb.Plugs.AddCSP,
 config :ret, Ret.Mailer, adapter: Bamboo.LocalAdapter
 
 config :ret, RetWeb.Email, from: "info@hubs-mail.com"
+
+config :ret, Ret.PermsToken, perms_key: "-----BEGIN RSA PRIVATE KEY-----\nMIICWgIBAAKBgGY+ubEoiUbtmm5dLtjx0jbaSRLYQ++gYTQJH+K5qGGGksN5PRiJ\nvnsTnWEOjhreFwXCr0QN/nCEXaepCd9/JYgpKUGY0ZyfeA4lO6tgQCSyv8HkxeUc\nVA24WLsvnABtCZ9ERHAFnItyeCUVRNNKOg25YnPg2g8AU779Hbl/zWkbAgMBAAEC\ngYAc691G2XqLT6aBVWZtA2o9Dd3hsL72x1z3hSU50t5oR9K37FF14XC6C8BWtfFI\ndE362SkOjQ7N8QM068HZMHQDBjvApegk6ZKr4jiRlj3qAxPDAG+Oc7Yx74SW5Fn+\nmTu/K3jhTqcN2Vs0TfORsyb6TuOc90KMSJk6pp/8eyX6MQJBAKxT/B1SLzn+xiO8\nYTRrLMs6t/44Mzg6HeJF/ahA9/JJXpqjMKgFl7uYP8XmyjfrIOOEpM7bQAiO9K/G\nRCl5TaUCQQCX45Db9bU8tsS/kIbPrKQmaUC/xM9e28ySH5PWuF89w3p617qbltWo\nxj4PtRhcyYh4Unkpz0FETrrIQ8dEV5+/AkBsKd7RzJbl8PsOzRu6GhcojHeWMlI7\n1YaSUtoOtJCsW87sgsd0fuYpEjvdDKoahRPEmqoTSFydwpTkiy6XVZMdAkBKAqsN\nYzbCtNQ9+/CUtSzvQo44Y3Agar3N3fEtyX0vHVdLEF9vfRnzOVX4VWffnpwO9TDw\n/HpzDGHbP5uTY5cFAkBTqvYJwDhDf68zQFyX4PEioC1dwFmaVCQ5UGNAMNTjxMxP\nIe4a3GB2wNJrGagFW60umJperKdmzonNPzB1Xqh0\n-----END RSA PRIVATE KEY-----"
 
 config :ret, Ret.OAuthToken, oauth_token_key: ""
 
