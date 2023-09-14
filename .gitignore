@@ -3,7 +3,9 @@ _build/
 db/
 deps/
 tmp/
+certs/
 *.ez
+.DS_Store
 
 # Generated on crash by the VM
 erl_crash.dump
