@@ -1,4 +1,4 @@
-defmodule RetWeb.Api.V1.WhatsNewController do
+defmodule RetWeb.Api.V1.CanvasController do
   use RetWeb, :controller
 
   @endpoint "https://api.github.com/graphql"
@@ -44,7 +44,7 @@ defmodule RetWeb.Api.V1.WhatsNewController do
       query {
         repository(owner: \"#{repo_owner}\", name: \"#{repo_name}\") {
           pullRequests(
-            labels: [\"#{@whats_new_label}\"],
+            labels: [\"#{@canvas}\"],
             states: [MERGED],
             first: #{@per_page},
             orderBy: { field: CREATED_AT, direction: DESC },
