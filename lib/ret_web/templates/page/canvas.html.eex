@@ -1,0 +1,1 @@
+<title>Canvas | <%= @translations["app-full-name"] || @translations["app-name"] %></title>
