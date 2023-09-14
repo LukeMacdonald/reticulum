@@ -239,13 +239,13 @@ defmodule RetWeb.PageController do
     do: conn |> render_page("whats-new.html", :hubs, "whats-new-meta.html")
   
   def render_for_path("/canvas", _params, conn),
-    do: conn |> render_page("canvas.html", :hubs, "canvas-meta.html")
-  
-  def render_for_path("/whats-new/", _params, conn),
-    do: conn |> render_page("whats-new.html", :hubs, "whats-new-meta.html")
+    do: conn |> render_page("canvas.html", :hubs, "canvas.html")
 
   def render_for_path("/canvas/", _params, conn),
     do: conn |> render_page("canvas.html", :hubs, "canvas.html")
+  
+  def render_for_path("/whats-new/", _params, conn),
+    do: conn |> render_page("whats-new.html", :hubs, "whats-new-meta.html")
 
   def render_for_path("/hub.service.js", _params, conn),
     do: conn |> render_asset("hub.service.js", :hubs, "hub.service-meta.js")
